@@ -88,10 +88,12 @@ contract SmartWallet is Ownable {
         // ecriture dans un registre comptable
         require(_balances[from] > 0, "SmartWallet: can not transfer 0 ether");
         require(_balances[from] >= amount, "SmartWallet: Not enough Ether to transfer");
+	require(_allowances[from][msg.sender] >= amount, "SmartWallet (transferFrom) : you can't spend this amount of money");
         require(to != address(0), "SmartWallet: transfer to the zero address");
         _balances[from] -= amount;
         _balances[to] += amount;
-        _setAllowance(from, msg.sender, _allowances[from][msg.sender] - amount);
+	uint256 newAmount = _allowances[from][msg.sender] - amount;
+        _setAllowance(from, msg.sender, newAmount);
         emit Transfered(from, to, amount);
     }
 
