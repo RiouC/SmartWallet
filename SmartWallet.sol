@@ -88,7 +88,7 @@ contract SmartWallet is Ownable {
         // ecriture dans un registre comptable
         require(_balances[from] > 0, "SmartWallet: can not transfer 0 ether");
         require(_balances[from] >= amount, "SmartWallet: Not enough Ether to transfer");
-	require(_allowances[from][msg.sender] >= amount, "SmartWallet (transferFrom) : you can't spend this amount of money");
+	require(_allowances[from][msg.sender] >= amount, "SmartWallet (transferFrom) : you can not spend this amount of money");
         require(to != address(0), "SmartWallet: transfer to the zero address");
         _balances[from] -= amount;
         _balances[to] += amount;
@@ -126,7 +126,7 @@ contract SmartWallet is Ownable {
     // Exercice 1
     // Implementer cette fonction pour qu'elle nous retourne ce que spender peut
     // encore dépenser en tant owner_.
-    function allowance(address owner_, address spender) public view returns (uint256 remaining) {
+    function allowance(address owner_, address spender) public view returns (uint256) {
         return _allowances[owner_][spender];
     }
 
